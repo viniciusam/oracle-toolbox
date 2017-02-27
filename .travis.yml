@@ -9,7 +9,7 @@ env:
 services:
   - docker
 
-before_install:
+install:
   - bash toolbox.sh
 
 script:
