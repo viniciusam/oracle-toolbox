@@ -9,7 +9,7 @@ OUTPUT_FILE=""
 # Then download the file using curl.
 downloadFile() {
     downloadUrl=$(exec casperjs download.js $ORACLE_OTN_USER $ORACLE_OTN_PASSWORD $AGREEMENT_URL $DOWNLOAD_URL)
-    echo "DownloadURL: $downloadUrl"
+    #echo "DownloadURL: $downloadUrl"
     curl $downloadUrl -o $OUTPUT_FILE
 }
 
@@ -28,7 +28,6 @@ if [ "$PRODUCT" = "se12c" ]; then
     DOWNLOAD_URL="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_1of2.zip"
     OUTPUT_FILE="linuxamd64_12102_database_se2_1of2.zip"
     downloadFile
-    exit 0
     AGREEMENT_URL="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
     DOWNLOAD_URL="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_2of2.zip"
     OUTPUT_FILE="linuxamd64_12102_database_se2_2of2.zip"
