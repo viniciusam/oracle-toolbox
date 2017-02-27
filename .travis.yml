@@ -6,14 +6,13 @@ services:
   - docker
 
 before_install:
+  - bash dependencies.sh
   - bash toolbox.sh
 
 script:
   - bash check.sh
 
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-      - phantomjs-prebuilt
-      - casperjs
+# addons:
+#   apt:
+#     packages:
+#       - oracle-java8-installer

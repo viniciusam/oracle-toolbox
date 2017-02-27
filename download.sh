@@ -5,11 +5,6 @@ AGREEMENT_URL=""
 DOWNLOAD_URL=""
 OUTPUT_FILE=""
 
-# Install required dependencies.
-installDependencies() {
-    npm install -g phantomjs-prebuilt casperjs
-}
-
 # Call the casperjs script to return the download url.
 # Then download the file using curl.
 downloadFile() {
@@ -27,8 +22,6 @@ while getopts "p:" OPTNAME; do
         "p") PRODUCT="${OPTARG}" ;;
     esac
 done
-
-#installDependencies
 
 if [ "$PRODUCT" = "se12c" ]; then
     AGREEMENT_URL="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
