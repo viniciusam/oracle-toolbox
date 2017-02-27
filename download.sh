@@ -27,8 +27,8 @@ if [ "$PRODUCT" = "se12c" ]; then
     AGREEMENT_URL="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
     DOWNLOAD_URL="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_1of2.zip"
     OUTPUT_FILE="linuxamd64_12102_database_se2_1of2.zip"
-    exit 0
     downloadFile
+    exit 0
     AGREEMENT_URL="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
     DOWNLOAD_URL="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_2of2.zip"
     OUTPUT_FILE="linuxamd64_12102_database_se2_2of2.zip"
