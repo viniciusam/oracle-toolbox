@@ -1,6 +1,9 @@
 sudo: required
-
 language: python
+
+env:
+  global:
+    - CACHE_DIR=$HOME/.cache
 
 services:
   - docker
@@ -11,6 +14,10 @@ before_install:
 
 script:
   - bash check.sh
+
+cache:
+  directories:
+    - $CACHE_DIR
 
 # addons:
 #   apt:
