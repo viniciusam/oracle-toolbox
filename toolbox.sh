@@ -2,6 +2,7 @@
 WORKDIR=$(pwd)
 
 # if [ ! -f $CACHE_DIR/linuxamd64_12102_database_se2_2of2.zip ]; then
+#     npm install -g phantomjs-prebuilt casperjs
 #     sh download.sh -p se12c
 #     mv linuxamd64_12102_database_se2_1of2.zip $CACHE_DIR/linuxamd64_12102_database_se2_1of2.zip
 #     mv linuxamd64_12102_database_se2_2of2.zip $CACHE_DIR/linuxamd64_12102_database_se2_2of2.zip
@@ -17,6 +18,7 @@ WORKDIR=$(pwd)
 # sh run_se12.sh
 
 if [ ! -f $CACHE_DIR/oracle-xe-11.2.0-1.0.x86_64.rpm.zip ]; then
+    npm install -g phantomjs-prebuilt casperjs
     sh download.sh -p xe11g
     mv oracle-xe-11.2.0-1.0.x86_64.rpm.zip $CACHE_DIR/oracle-xe-11.2.0-1.0.x86_64.rpm.zip
 fi

@@ -1,4 +1,5 @@
-sudo: false
+dist: trusty
+sudo: required
 language: python
 
 env:
@@ -9,7 +10,6 @@ services:
   - docker
 
 before_install:
-  - bash dependencies.sh
   - bash toolbox.sh
 
 script:
