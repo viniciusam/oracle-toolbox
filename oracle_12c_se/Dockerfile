@@ -22,7 +22,8 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     chmod +x /usr/local/bin/gosu && \
     echo "Installing oracle-rdbms-server-12cR1-preinstall..." && \
     yum install -y -q oracle-rdbms-server-12cR1-preinstall && \
-    yum clean all
+    yum clean all && \
+    chmod -R 777 $SCRIPTS_DIR
 
 VOLUME ["$INSTALL_DIR"]
 #VOLUME ["$SCRIPTS_DIR"]
