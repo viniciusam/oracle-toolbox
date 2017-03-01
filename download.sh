@@ -35,6 +35,18 @@ if [ "$PRODUCT" = "se12c" ]; then
     exit 0
 fi
 
+if [ "$PRODUCT" = "ee12c" ]; then
+    AGREEMENT_URL="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
+    DOWNLOAD_URL="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_1of2.zip"
+    OUTPUT_FILE="linuxamd64_12102_database_1of2.zip"
+    downloadFile
+    AGREEMENT_URL="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
+    DOWNLOAD_URL="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_2of2.zip"
+    OUTPUT_FILE="linuxamd64_12102_database_2of2.zip"
+    downloadFile
+    exit 0
+fi
+
 if [ "$PRODUCT" = "xe11g" ]; then
     AGREEMENT_URL="http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html"
     DOWNLOAD_URL="https://edelivery.oracle.com/akam/otn/linux/oracle11g/xe/oracle-xe-11.2.0-1.0.x86_64.rpm.zip"

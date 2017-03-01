@@ -1,0 +1,118 @@
+##############################################################################
+##                                                                          ##
+##                            DBCA response file                            ##
+##                            ------------------                            ##
+## Copyright   1998, 2014, Oracle Corporation. All Rights Reserved.         ##
+##                                                                          ##
+## Specify values for the variables listed below to customize Oracle        ##
+## Database Configuration installation.                                     ##
+##                                                                          ##
+## Each variable is associated with a comment. The comment identifies the   ##
+## variable type.                                                           ##
+##                                                                          ##
+## Please specify the values in the following format :                      ##
+##          Type       :  Example                                           ##
+##          String     :  "<value>"                                         ##
+##          Boolean    :  True or False                                     ##
+##          Number     :  <numeric value>                                   ##
+##          StringList :  {"<value1>","<value2>"}                           ##
+##                                                                          ##
+## Examples :                                                               ##
+##     1. dbca -progress_only -responseFile <response file>                 ##
+##        Display a progress bar depicting progress of database creation    ##
+##        process.                                                          ##
+##                                                                          ##
+##     2. dbca -silent -responseFile <response file>                        ##
+##        Creates database silently. No user interface is displayed.        ##
+##                                                                          ##
+##     3. dbca -silent -createDatabase -cloneTemplate                       ##
+##			 -responseFile <response file>                      ##
+##        Creates database silently with clone template. The template in    ##
+##	  responsefile is a clone template. 			            ##
+##                                                                          ##
+##     4. dbca -silent -deleteDatabase -responseFile <response file>        ##
+##        Deletes database silently.                                        ##
+##############################################################################
+
+#-----------------------------------------------------------------------------
+# GENERAL section is required for all types of database creations.
+#-----------------------------------------------------------------------------
+[GENERAL]
+
+#-----------------------------------------------------------------------------
+# Name          : RESPONSEFILE_VERSION
+# Datatype      : String
+# Description   : Version of the database to create
+# Valid values  : "12.1.0"
+# Default value : None
+# Mandatory     : Yes
+#-----------------------------------------------------------------------------
+RESPONSEFILE_VERSION = "12.1.0"
+
+#-----------------------------------------------------------------------------
+# Name          : OPERATION_TYPE
+# Datatype      : String
+# Description   : Type of operation
+# Valid values  : "createDatabase" \ "createTemplateFromDB" \ "createCloneTemplate" \ "deleteDatabase" \ "configureDatabase" \ "addInstance" (RAC-only) \ "deleteInstance" (RAC-only) \ "createPluggableDatabase" \ "unplugDatabase" \ "deletePluggableDatabase" \ "configurePluggableDatabase"
+# Default value : None
+# Mandatory     : Yes
+#-----------------------------------------------------------------------------
+OPERATION_TYPE = "createDatabase"
+
+#-----------------------*** End of GENERAL section ***------------------------
+
+#-----------------------------------------------------------------------------
+# CREATEDATABASE section is used when OPERATION_TYPE is defined as "createDatabase". 
+#-----------------------------------------------------------------------------
+[CREATEDATABASE]
+
+#-----------------------------------------------------------------------------
+# Name          : GDBNAME
+# Datatype      : String
+# Description   : Global database name of the database
+# Valid values  : <db_name>.<db_domain> - when database domain isn't NULL
+#                 <db_name>             - when database domain is NULL
+# Default value : None
+# Mandatory     : Yes
+#-----------------------------------------------------------------------------
+GDBNAME = "###GDBNAME###"
+
+#-----------------------------------------------------------------------------
+# Name          : SID
+# Datatype      : String
+# Description   : System identifier (SID) of the database
+# Valid values  : Check Oracle12c Administrator's Guide
+# Default value : <db_name> specified in GDBNAME
+# Mandatory     : No
+#-----------------------------------------------------------------------------
+SID = "###ORACLE_SID###"
+
+#-----------------------------------------------------------------------------
+# Name          : TEMPLATENAME
+# Datatype      : String
+# Description   : Name of the template
+# Valid values  : Template file name
+# Default value : None
+# Mandatory     : Yes
+#-----------------------------------------------------------------------------
+TEMPLATENAME = "General_Purpose.dbc"
+
+#-----------------------------------------------------------------------------
+# Name          : SYSPASSWORD
+# Datatype      : String
+# Description   : Password for SYS user
+# Valid values  : Check Oracle12c Administrator's Guide
+# Default value : None
+# Mandatory     : Yes
+#-----------------------------------------------------------------------------
+SYSPASSWORD = "###ORACLE_PWD###"
+
+#-----------------------------------------------------------------------------
+# Name          : SYSTEMPASSWORD
+# Datatype      : String
+# Description   : Password for SYSTEM user
+# Valid values  : Check Oracle12c Administrator's Guide
+# Default value : None
+# Mandatory     : Yes
+#-----------------------------------------------------------------------------
+SYSTEMPASSWORD = "###ORACLE_PWD###"
