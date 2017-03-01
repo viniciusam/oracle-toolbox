@@ -25,8 +25,8 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     yum clean all
 
 VOLUME ["$INSTALL_DIR"]
-VOLUME ["$SCRIPTS_DIR"]
-VOLUME ["$ORACLE_BASE/oradata"]
+#VOLUME ["$SCRIPTS_DIR"]
+#VOLUME ["$ORACLE_BASE/oradata"]
 EXPOSE 1521 5500
 
 CMD $SCRIPTS_DIR/install.sh
