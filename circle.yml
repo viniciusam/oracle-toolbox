@@ -1,0 +1,13 @@
+
+dependencies:
+  pre:
+    - npm install phantomjs-prebuilt
+    - npm install casperjs
+
+compile:
+  override:
+    - bash toolbox.sh
+
+test:
+  override:
+    - bash check.sh

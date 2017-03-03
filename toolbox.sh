@@ -4,7 +4,7 @@ WORKDIR=$(pwd)
 free -m
 df -h
 
-npm install -g phantomjs-prebuilt casperjs
+#npm install -g phantomjs-prebuilt casperjs
 sh download.sh -p se12c
 
 mkdir -p $WORKDIR/oracle_install
