@@ -33,49 +33,25 @@ docker logs -f oracle12c | grep -m 1 "DATABASE IS READY!" --line-buffered
 
 echo "Removing Install Dir"
 rm -rf $VOLUME_DIR/install
+
+echo "Creating Image Snapshot"
 docker commit oracle12c oracle12c
-
-cd $CACHE_DIR
-
-echo "Compressing Image and Install Dir"
-chmod -R 777 $VOLUME_DIR
-docker export --output="./oracle12c_img.tar" oracle12c
-tar -zcf oracle12c_install.tar.gz $VOLUME_DIR
 
 free -m
 df -h
 
+cd $CACHE_DIR
+
+echo "Exporting Snapshot"
+docker export --output="./oracle12c_img.tar" oracle12c
+
+ls -la
+
+echo "Compressing Install Dir"
+sudo tar -zcf oracle12c_install.tar.gz $VOLUME_DIR
+
+ls -la
+free -m
+df -h
+
 exit 0
-
-#cd $WORKDIR
-#sh run_se12.sh
-
-# if [ ! -f $CACHE_DIR/linuxamd64_12102_database_se2_2of2.zip ]; then
-#     npm install -g phantomjs-prebuilt casperjs
-#     sh download.sh -p se12c
-#     mv linuxamd64_12102_database_se2_1of2.zip $CACHE_DIR/linuxamd64_12102_database_se2_1of2.zip
-#     mv linuxamd64_12102_database_se2_2of2.zip $CACHE_DIR/linuxamd64_12102_database_se2_2of2.zip
-# fi
-
-# cp $CACHE_DIR/linuxamd64_12102_database_se2_1of2.zip dockerfiles/12.1.0.2/linuxamd64_12102_database_se2_1of2.zip
-# cp $CACHE_DIR/linuxamd64_12102_database_se2_2of2.zip dockerfiles/12.1.0.2/linuxamd64_12102_database_se2_2of2.zip
-
-# cd dockerfiles
-# sh buildDockerImage.sh -s
-
-# cd $WORKDIR
-# sh run_se12.sh
-
-# if [ ! -f $CACHE_DIR/oracle-xe-11.2.0-1.0.x86_64.rpm.zip ]; then
-#     npm install -g phantomjs-prebuilt casperjs
-#     sh download.sh -p xe11g
-#     mv oracle-xe-11.2.0-1.0.x86_64.rpm.zip $CACHE_DIR/oracle-xe-11.2.0-1.0.x86_64.rpm.zip
-# fi
-
-# cp $CACHE_DIR/oracle-xe-11.2.0-1.0.x86_64.rpm.zip dockerfiles/11.2.0.2/oracle-xe-11.2.0-1.0.x86_64.rpm.zip
-
-# cd dockerfiles
-# sh buildDockerImage.sh -v 11.2.0.2
-
-# cd $WORKDIR
-# sh run_xe11.sh
