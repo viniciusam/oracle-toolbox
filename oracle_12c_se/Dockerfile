@@ -23,7 +23,8 @@ COPY install.sh $INSTALL_RSP $DBCA_RSP $NETCA_RSP $SCRIPTS_DIR/
 RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" && \
     chmod +x /usr/local/bin/gosu && \
     yum install -y oracle-rdbms-server-12cR1-preinstall && \
-    yum clean all
+    yum clean all && \
+    chmod -R 777 $SCRIPTS_DIR
 
 VOLUME ["$BASE_DIR"]
 VOLUME ["$SCRIPTS_DIR"]

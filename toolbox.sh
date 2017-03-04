@@ -23,7 +23,7 @@ df -h
 
 cd $WORKDIR/oracle_12c_se
 docker build -t viniciusam/orace-12c-se .
-docker run -d --name oracle12c -p 1521:1521 -v $VOLUME_DIR:/u01 viniciusam/orace-12c-se
+docker run -d --privileged --name oracle12c -p 1521:1521 -v $VOLUME_DIR:/u01 viniciusam/orace-12c-se
 
 docker logs -f oracle12c | grep -m 1 "DATABASE IS READY!" --line-buffered
 rm -rf $VOLUME_DIR/install
