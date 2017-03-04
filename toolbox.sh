@@ -4,13 +4,15 @@ WORKDIR=$(pwd)
 free -m
 df -h
 
-#npm install -g phantomjs-prebuilt casperjs
+npm install -g phantomjs-prebuilt casperjs
 sh download.sh -p se12c
 
-mkdir -p $WORKDIR/oracle_install
-mv linuxamd64_12102_database_se2_1of2.zip $WORKDIR/oracle_install/linuxamd64_12102_database_se2_1of2.zip
-mv linuxamd64_12102_database_se2_2of2.zip $WORKDIR/oracle_install/linuxamd64_12102_database_se2_2of2.zip
-cd $WORKDIR/oracle_install
+VOLUME_DIR=$WORKDIR/oracle12c/u01
+
+mkdir -p $VOLUME_DIR/install
+mv linuxamd64_12102_database_se2_1of2.zip $VOLUME_DIR/install/linuxamd64_12102_database_se2_1of2.zip
+mv linuxamd64_12102_database_se2_2of2.zip $VOLUME_DIR/install/linuxamd64_12102_database_se2_2of2.zip
+cd $VOLUME_DIR/install
 unzip -q linuxamd64_12102_database_se2_1of2.zip
 rm linuxamd64_12102_database_se2_1of2.zip
 unzip -q linuxamd64_12102_database_se2_2of2.zip
@@ -21,11 +23,17 @@ df -h
 
 cd $WORKDIR/oracle_12c_se
 docker build -t viniciusam/orace-12c-se .
-docker run -d --name oracle12c -p 1521:1521 -v $WORKDIR/oracle_install:/oracle_install viniciusam/orace-12c-se
+docker run -d --name oracle12c -p 1521:1521 -v $VOLUME_DIR:/u01 viniciusam/orace-12c-se
 
 docker logs -f oracle12c | grep -m 1 "DATABASE IS READY!" --line-buffered
-rm -rf $WORKDIR/oracle_install
-docker commit oracle12c
+rm -rf $VOLUME_DIR/install
+docker commit oracle12c oracle12c
+
+cd $CACHE_DIR
+docker export --output="./oracle12c_img.tar" oracle12c
+tar -zcvf oracle12c_install.tar.gz $VOLUME_DIR
+
+ls -la
 
 free -m
 df -h

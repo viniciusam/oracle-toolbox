@@ -1,0 +1,15 @@
+
+docker build -t viniciusam/oracle-12c-se .
+
+docker run --rm -it --privileged -p 1521:1521 -p 8080:8080 -v /c/Users/Vinicius/Docker/oracle12/u01:/u01 -v /c/Users/Vinicius/Docker/oracle12/scripts:/scripts viniciusam/oracle-12c-se
+
+docker run --privileged \
+    -p 1521:1521 -p 8080:8080 \
+    -v /home/vinicius/Docker/oracle12/u01:/u01 \
+    -v /home/vinicius/Docker/oracle12/scripts:/scripts \
+    viniciusam/oracle-12c-se
+
+docker run --privileged \
+    -p 1521:1521 -p 8080:8080 \
+    -v /home/vinicius/Docker/oracle12/u01:/u01 \
+    viniciusam/oracle-12c-se

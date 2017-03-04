@@ -2,32 +2,31 @@
 
 FROM oraclelinux:7-slim
 
-ENV ORACLE_BASE=/opt/oracle
+ENV BASE_DIR=/u01 \
+    SCRIPTS_DIR=/scripts
 
-ENV INSTALL_DIR=/oracle_install \
-    SCRIPTS_DIR=/oracle_scripts \
+ENV ORACLE_BASE=$BASE_DIR/oracle \
+    INSTALL_DIR=$BASE_DIR/install \
     INSTALL_RSP=db_install.rsp \
     DBCA_RSP=dbca.rsp \
     NETCA_RSP=netca.rsp \
-    ORACLE_HOME=$ORACLE_BASE/product/12102/dbhome_1 \
-    ORACLE_INVENTORY=/home/oracle/oraInventory \
     GDBNAME=orcl12c \
     ORACLE_SID=orcl \
-    ORACLE_PWD=oracle \
-    ORACLE_HOME_LISTNER=$ORACLE_HOME
+    ORACLE_PWD=oracle
+
+ENV ORACLE_HOME=$ORACLE_BASE/product/12102/dbhome_1 \
+    ORACLE_HOME_LISTNER=$ORACLE_HOME \
+    ORACLE_INVENTORY=$BASE_DIR/oraInventory
 
 COPY install.sh $INSTALL_RSP $DBCA_RSP $NETCA_RSP $SCRIPTS_DIR/
 
 RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" && \
     chmod +x /usr/local/bin/gosu && \
-    echo "Installing oracle-rdbms-server-12cR1-preinstall..." && \
-    yum install -y -q oracle-rdbms-server-12cR1-preinstall && \
-    yum clean all && \
-    chmod -R 777 $SCRIPTS_DIR
+    yum install -y oracle-rdbms-server-12cR1-preinstall && \
+    yum clean all
 
-VOLUME ["$INSTALL_DIR"]
-#VOLUME ["$SCRIPTS_DIR"]
-#VOLUME ["$ORACLE_BASE/oradata"]
+VOLUME ["$BASE_DIR"]
+VOLUME ["$SCRIPTS_DIR"]
 EXPOSE 1521 5500
 
 CMD $SCRIPTS_DIR/install.sh
