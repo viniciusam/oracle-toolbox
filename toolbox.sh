@@ -34,16 +34,10 @@ docker logs -f oracle12c | grep -m 1 "DATABASE IS READY!" --line-buffered
 echo "Removing Install Dir"
 rm -rf $INSTALL_DIR
 
-echo "Creating Image Snapshot"
-docker commit oracle12c oracle12c
-
-free -m
-df -h
-
 cd $CACHE_DIR
 
-echo "Exporting Snapshot"
-docker export --output="./oracle12c_img.tar" oracle12c
+echo "Exporting Container to Cache"
+docker export -o oracle12c.tar oracle12c
 
 ls -la
 free -m
