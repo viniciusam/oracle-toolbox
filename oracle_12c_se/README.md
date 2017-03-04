@@ -1,4 +1,7 @@
-This image doens't contain a running instance of Oracle Database. You need to download the installation files manually.
+This image doesn't contain a running instance of Oracle Database. You need to download the installation files manually.
+
+http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_1of2.zip
+http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_2of2.zip
 
 ### Building
 
