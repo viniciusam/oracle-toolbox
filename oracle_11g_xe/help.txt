@@ -1,0 +1,10 @@
+
+docker build -t viniciusam/oracle-11g-xe .
+
+docker run --rm -it --privileged --name oracle11g -p 1521:1521 -p 8080:8080 -v /c/Users/Vinicius/Docker/oracle11/install:/install -v /c/Users/Vinicius/Docker/oracle11/scripts:/scripts viniciusam/oracle-11g-xe bash
+
+export SWAPFILE=/mnt/sda1/swapfile
+sudo dd if=/dev/zero of=$SWAPFILE bs=1M count=2200
+sudo mkswap $SWAPFILE
+sudo chmod 600 $SWAPFILE
+sudo swapon $SWAPFILE

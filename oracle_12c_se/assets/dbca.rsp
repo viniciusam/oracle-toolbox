@@ -75,7 +75,7 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = "###GDBNAME###"
+GDBNAME = "###ORACLE_PDB###"
 
 #-----------------------------------------------------------------------------
 # Name          : SID

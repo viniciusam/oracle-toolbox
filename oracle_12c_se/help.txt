@@ -9,7 +9,12 @@ docker run --privileged \
     -v /home/vinicius/Docker/oracle12/scripts:/scripts \
     viniciusam/oracle-12c-se
 
-docker run --privileged \
-    -p 1521:1521 -p 8080:8080 \
-    -v /home/vinicius/Docker/oracle12/u01:/u01 \
+docker run -d --name oracle-12c-se --privileged -p 1521:1521 -p 8080:8080 \
+    -v /home/vinicius/Docker/oracle12c:/install \
     viniciusam/oracle-12c-se
+
+docker run --name oracle-12c-se -p 1521:1521 -v /c/Users/Vinicius/Docker/oracle12c:/install viniciusam/oracle-12c-se
+
+docker run --rm -it -p 1521:1521 -v /c/Users/vinicius.moreira/Docker/oracle12c:/install oracle-12c-se bash
+
+docker run --name oracle-12c-se --rm -it -p 1521:1521 -v /c/Users/vinicius.moreira/Docker/oracle12c_install:/install -v /c/Users/vinicius.moreira/Docker/oracle12c_assets:/assets oracle-12c-se bash
