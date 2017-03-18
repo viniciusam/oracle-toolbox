@@ -3,22 +3,21 @@
 
 FROM oraclelinux:5
 
-ENV INSTALL_DIR=/install \
-    SCRIPTS_DIR=/scripts \
-    INSTALL_RSP=xe.rsp \
+ENV ASSETS_DIR=/assets \
     ORACLE_SID=xe \
     ORACLE_PASSWORD=oracle
 
-COPY install.sh $INSTALL_RSP $SCRIPTS_DIR/
+COPY assets $ASSETS_DIR
+COPY entrypoint.sh /entrypoint.sh
 
 #curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" && \
 #chmod +x /usr/local/bin/gosu && \
 
-RUN yum install -y libaio bc initscripts net-tools glibc make binutils gcc && \
+RUN bash echo "Installing Dependencies..." && \
+    yum install -qq libaio bc initscripts net-tools glibc make binutils gcc && \
     yum clean all && \
-    chmod +r $SCRIPTS_DIR
+    chmod -R 777 $ASSETS_DIR && \
+    $ASSETS_DIR/install.sh
 
-VOLUME ["$INSTALL_DIR"]
-EXPOSE 1521 8080
-
-CMD $SCRIPTS_DIR/install.sh
+EXPOSE 1521
+CMD /entrypoint.sh

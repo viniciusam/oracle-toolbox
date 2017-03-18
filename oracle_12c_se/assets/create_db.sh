@@ -1,14 +1,11 @@
 #!/bin/bash
 set -e
 
-DBCA_RSP=dbca.rsp
-NETCA_RSP=netca.rsp
+cp $ASSETS_DIR/tmpl_dbca.rsp $ASSETS_DIR/dbca.rsp
+DBCA_RSP=$ASSETS_DIR/dbca.rsp
 
-sed -i -e "s|###ORACLE_PDB###|$ORACLE_PDB|g" $ASSETS_DIR/$DBCA_RSP
-sed -i -e "s|###ORACLE_SID###|$ORACLE_SID|g" $ASSETS_DIR/$DBCA_RSP
-sed -i -e "s|###ORACLE_PWD###|$ORACLE_PWD|g" $ASSETS_DIR/$DBCA_RSP
-
-mkdir -p $ORACLE_HOME/network/admin
+sed -i -e "s|###ORACLE_SID###|$ORACLE_SID|g" $DBCA_RSP
+sed -i -e "s|###ORACLE_PWD###|$ORACLE_PWD|g" $DBCA_RSP
 
 echo "NAME.DIRECTORY_PATH= {TNSNAMES, EZCONNECT, HOSTNAME}" > $ORACLE_HOME/network/admin/sqlnet.ora
 
@@ -21,16 +18,17 @@ echo "LISTENER =
 ) 
 " > $ORACLE_HOME/network/admin/listener.ora
 
-echo "$ORACLE_SID=localhost:1521/$ORACLE_SID" >> $ORACLE_HOME/network/admin/tnsnames.ora
-echo "$ORACLE_PDB= 
+#echo "$ORACLE_SID=localhost:1521/$ORACLE_SID" >> $ORACLE_HOME/network/admin/tnsnames.ora
+echo "$ORACLE_SID= 
 (DESCRIPTION = 
   (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
   (CONNECT_DATA =
     (SERVER = DEDICATED)
-    (SERVICE_NAME = $ORACLE_PDB)
+    (SERVICE_NAME = $ORACLE_SID)
   )
 )" >> $ORACLE_HOME/network/admin/tnsnames.ora
 
-# Start the listener and configure the database.
-lsnrctl start
-gosu oracle /bin/bash -c "dbca -silent -responseFile $ASSETS_DIR/$DBCA_RSP"
+# Configure the database.
+gosu oracle bash -c "dbca -silent -responseFile $DBCA_RSP"
+
+rm -f $DBCA_RSP
