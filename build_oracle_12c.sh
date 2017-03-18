@@ -10,7 +10,6 @@ ORACLE12c_FILE1=linuxamd64_12102_database_se2_1of2.zip
 ORACLE12c_FILE2=linuxamd64_12102_database_se2_2of2.zip
 
 # Download Oracle 12c Install Files
-cd ./.circleci
 bash download.sh -p se12c
 mv $ORACLE12c_FILE1 ./oracle_12c_se
 mv $ORACLE12c_FILE2 ./oracle_12c_se
