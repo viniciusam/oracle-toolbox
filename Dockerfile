@@ -1,7 +1,6 @@
 FROM ubuntu:xenial
 
 RUN apt-get update && \
-    bash echo "Installing Dependencies..." && \
     apt-get install -qq curl git python && \
     # Docker Client
     VER="17.03.0-ce" && \
@@ -10,11 +9,9 @@ RUN apt-get update && \
     mv /tmp/docker/* /usr/bin && \
     # Node & Dependencies
     curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    bash echo "Installing Node.js..." && \
     apt-get install -qq nodejs build-essential libfontconfig && \
     npm install -g phantomjs-prebuilt casperjs && \
     # Java
-    bash echo "Installing Java..." && \
     apt-get install -qq software-properties-common && \
     add-apt-repository -qq ppa:webupd8team/java && apt-get update && \
     apt-get install -qq oracle-java8-installer && \

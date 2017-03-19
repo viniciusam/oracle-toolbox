@@ -32,6 +32,7 @@ jobs:
       - run:
           name: Run Oracle 12c
           command: |
+            echo "Loading image from cache..."
             docker load < $CACHE_DIR/oracle-12c.tar
             docker run -d --privileged --name oracle-12c -p 1521:1521 oracle-12c
             docker logs -f oracle-12c | grep -m 1 "DATABASE IS READY TO USE!" --line-buffered

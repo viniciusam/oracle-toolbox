@@ -18,5 +18,7 @@ mv $ORACLE12c_FILE2 ./oracle_12c_se
 cd ./oracle_12c_se
 docker build --no-cache=true --force-rm=true -t oracle-12c .
 #docker rmi $(docker images -q -f dangling=true)
-docker save oracle-12c > $CACHE_DIR/oracle-12c.tar
+docker images
+echo "Saving image to cache dir..."
+docker save -o  $CACHE_DIR/oracle-12c.tar oracle-12c
 docker rmi oracle-12c
