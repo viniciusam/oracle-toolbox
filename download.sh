@@ -6,6 +6,7 @@ if [ "$ORACLE_OTN_USER" == "" ] || [ "$ORACLE_OTN_PASSWORD" == "" ]; then
     exit 1
 fi
 
+DOWNLOADS_DIR="/downloads"
 PRODUCT=""
 
 # Call the casperjs script to return the download url.
@@ -13,20 +14,22 @@ PRODUCT=""
 downloadFile() {
     downloadUrl=$(exec casperjs download.js $ORACLE_OTN_USER $ORACLE_OTN_PASSWORD $1 $2)
     echo "DownloadURL: $downloadUrl"
-    curl $downloadUrl -o $3
+    curl $downloadUrl -o $DOWNLOADS_DIR/$3
 }
 
 #############################
 ########### START ###########
 #############################
 
-while getopts "p:" OPTNAME; do
+while getopts "hp:" OPTNAME; do
     case "${OPTNAME}" in
         "p") PRODUCT="${OPTARG}" ;;
+        "h") echo "TODO: Help" ;;
     esac
 done
 
 if [ "$PRODUCT" == "se12c" ]; then
+    echo "Downloading Oracle 12c SE R1..."
     agreementUrl="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
     downloadUrl="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_se2_1of2.zip"
     outputFile=linuxamd64_12102_database_se2_1of2.zip
@@ -39,6 +42,7 @@ if [ "$PRODUCT" == "se12c" ]; then
 fi
 
 if [ "$PRODUCT" == "ee12c" ]; then
+    echo "Downloading Oracle 12c EE R1..."
     agreementUrl="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html"
     downloadUrl="http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_1of2.zip"
     outputFile=linuxamd64_12102_database_1of2.zip
@@ -51,6 +55,7 @@ if [ "$PRODUCT" == "ee12c" ]; then
 fi
 
 if [ "$PRODUCT" == "xe11g" ]; then
+    echo "Downloading Oracle 11g XE R2..."
     agreementUrl="http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html"
     downloadUrl="https://edelivery.oracle.com/akam/otn/linux/oracle11g/xe/oracle-xe-11.2.0-1.0.x86_64.rpm.zip"
     outputFile=oracle-xe-11.2.0-1.0.x86_64.rpm.zip
@@ -59,6 +64,7 @@ if [ "$PRODUCT" == "xe11g" ]; then
 fi
 
 if [ "$PRODUCT" == "sqlcl" ]; then
+    echo "Downloading SQLCL..."
     agreementUrl="http://www.oracle.com/technetwork/developer-tools/sqlcl/downloads/index.html"
     downloadUrl="http://download.oracle.com/otn/java/sqldeveloper/sqlcl-4.2.0.16.355.0402-no-jre.zip"
     outputFile=sqlcl-4.2.0.16.355.0402-no-jre.zip

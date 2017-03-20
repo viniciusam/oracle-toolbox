@@ -1,0 +1,13 @@
+sudo: required
+language: minimal
+
+services:
+  - docker
+
+script:
+  - docker build --force-rm --no-cache -t viniciusam/oracle-toolbox
+  - bash test.sh
+
+after_success:
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+  - docker push viniciusam/oracle-toolbox

@@ -1,20 +1,15 @@
-FROM ubuntu:xenial
+FROM oraclelinux:7-slim
 
-RUN apt-get update && \
-    apt-get install -qq curl git python && \
-    # Docker Client
-    VER="17.03.0-ce" && \
-    curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz && \
-    tar -xz -C /tmp -f /tmp/docker-$VER.tgz && \
-    mv /tmp/docker/* /usr/bin && \
-    # Node & Dependencies
-    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    apt-get install -qq nodejs build-essential libfontconfig && \
+COPY download.js download.sh /scripts/
+
+RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - && \
+    yum -y install nodejs fontconfig && \
+    yum -y groupinstall 'Development Tools' && \
     npm install -g phantomjs-prebuilt casperjs && \
-    # Java
-    apt-get install -qq software-properties-common && \
-    add-apt-repository -qq ppa:webupd8team/java && apt-get update && \
-    apt-get install -qq oracle-java8-installer && \
-    apt-get install -qq oracle-java8-set-default && \
-    # Clean
-    apt-get clean
+    chmod -R 777 /scripts
+
+VOLUME ["/downloads"]
+
+WORKDIR /scripts
+ENTRYPOINT ["/scripts/download.sh"]
+CMD ["-h"]
