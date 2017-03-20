@@ -16,9 +16,12 @@ mv $ORACLE12c_FILE2 ./oracle_12c_se
 
 # Build and Save Docker image
 cd ./oracle_12c_se
-docker build --no-cache=true --force-rm=true -t oracle-12c .
-#docker rmi $(docker images -q -f dangling=true)
+docker build --force-rm --squash -t oracle-12c .
+echo "Removing base image..."
+docker rmi $(docker images -q -f dangling=true)
 docker images
 echo "Saving image to cache dir..."
-docker save -o  $CACHE_DIR/oracle-12c.tar oracle-12c
+docker save oracle-12c -o  $CACHE_DIR/oracle-12c.tar
+echo "Removing expoerted image..."
 docker rmi oracle-12c
+docker images

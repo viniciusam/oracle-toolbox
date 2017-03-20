@@ -21,7 +21,7 @@ ENV PATH=/usr/sbin:$PATH \
 
 COPY $INSTALL_FILE_1 $INSTALL_FILE_2 $INSTALL_DIR/
 COPY entrypoint.sh $ORACLE_BASE/
-COPY assets $ASSETS_DIR
+COPY assets/* $ASSETS_DIR/
 
 RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" && \
     chmod +x /usr/local/bin/gosu && \
