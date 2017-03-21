@@ -5,7 +5,7 @@ services:
   - docker
 
 script:
-  - docker build --force-rm --no-cache -t viniciusam/oracle-toolbox
+  - docker build --force-rm --no-cache -t viniciusam/oracle-toolbox .
   - bash test.sh
 
 after_success:
