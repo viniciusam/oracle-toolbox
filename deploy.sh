@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ ! $TRAVIS_BRANCH == "master" ] || [ $TRAVIS_PULL_REQUEST ]; then
+if [ ! $TRAVIS_BRANCH == "master" ] || [ ! $TRAVIS_PULL_REQUEST == "false" ]; then
     echo "Skipping push step."
     exit 0;
 fi
