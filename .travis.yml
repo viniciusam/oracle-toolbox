@@ -9,5 +9,4 @@ script:
   - bash test.sh
 
 after_success:
-  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-  - docker push viniciusam/oracle-toolbox
+  - bash deploy.sh
