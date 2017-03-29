@@ -6,15 +6,16 @@ if [ "$ORACLE_OTN_USER" == "" ] || [ "$ORACLE_OTN_PASSWORD" == "" ]; then
     exit 1
 fi
 
+echo "PhamtomJS Version: $(phantomjs --version)"
+echo "CasperJS Version: $(casperjs --version)"
+
 DOWNLOADS_DIR="/downloads"
 PRODUCT=""
 
 # Call the casperjs script to return the download url.
 # Then download the file using curl.
 downloadFile() {
-    downloadUrl=$(exec casperjs download.js $ORACLE_OTN_USER $ORACLE_OTN_PASSWORD $1 $2)
-    echo "DownloadURL: $downloadUrl"
-    curl $downloadUrl -o $DOWNLOADS_DIR/$3
+    casperjs download.js "$ORACLE_OTN_USER" "$ORACLE_OTN_PASSWORD" "$1" "$2" "$DOWNLOADS_DIR/$3"
 }
 
 #############################
@@ -71,6 +72,8 @@ if [ "$PRODUCT" == "sqlcl" ]; then
     downloadFile $agreementUrl $downloadUrl $outputFile
     exit 0
 fi
+
+# TODO: Support for custom URLs.
 
 echo "Error: invalid product: $PRODUCT"
 exit 1
